@@ -11,9 +11,7 @@
 
 // Calibration data is stored in SPIFFS so we need to include it
 #include "FS.h"
-
 #include <SPI.h>
-
 #include <TFT_eSPI.h> // Hardware-specific library
 
 TFT_eSPI tft = TFT_eSPI();       // Invoke custom library
@@ -25,8 +23,17 @@ TFT_eSPI tft = TFT_eSPI();       // Invoke custom library
 // Set REPEAT_CAL to true instead of false to run calibration
 // again, otherwise it will only be done once.
 // Repeat calibration if you change the screen rotation.
+
+//-------------------------------Upgrade List------------------------------------------------
+  //Draw rectangle to put text that changes
+  //Turn relay on and off
+  //Read values from incoming ADC signal
+  //Write values to outgoing ADC signal
+//------------------------------------------------------------------------------------------
+
 #define REPEAT_CAL false
 
+//Default action of on screen switch set to on
 boolean SwitchOn = false;
 
 // Comment out to stop drawing black spots
@@ -58,8 +65,14 @@ void setup(void)
   Serial.begin(115200);
   
   tft.init();
+  
+  //---------------------------------
   pinMode(LED,OUTPUT);
   digitalWrite(LED,LOW);
+  
+  
+  //---------------------------------
+  
   // Set the rotation before we calibrate
   tft.setRotation(1);
 
@@ -72,10 +85,10 @@ void setup(void)
   // Draw button (this example does not use library Button class)
   redBtn();
 }
-//------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------
+
 void loop()
 {
+  //Int data type, uint16 is used for portability when writing library files
   uint16_t x, y;
   
   // See if there's any touch data for us
