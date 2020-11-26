@@ -27,6 +27,7 @@ TFT_eSPI tft = TFT_eSPI();       // Invoke custom library
 // Repeat calibration if you change the screen rotation.
 #define REPEAT_CAL false
 
+//This is probably to default the switch in the off position
 boolean SwitchOn = false;
 
 // Comment out to stop drawing black spots
@@ -37,6 +38,12 @@ boolean SwitchOn = false;
 #define FRAME_Y 64
 #define FRAME_W 120
 #define FRAME_H 50
+
+#define relay1_FRAME_X 100
+#define relay1_FRAME_Y 160
+#define relay1_FRAME_W 120
+#define relay1_FRAME_H 50
+
 
 // Red zone size
 #define REDBUTTON_X FRAME_X
@@ -50,6 +57,13 @@ boolean SwitchOn = false;
 #define GREENBUTTON_W (FRAME_W/2)
 #define GREENBUTTON_H FRAME_H
 #define LED 2
+
+//Relay 1 Off
+#define RELAY1_X relay1_FRAME_X
+#define RELAY1_Y relay1_FRAME_Y
+#define RELAY1_W (relay1_FRAME_W/2)
+#define RELAY1_H relay1_FRAME_H
+
 
 //------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------
@@ -71,6 +85,7 @@ void setup(void)
 
   // Draw button (this example does not use library Button class)
   redBtn();
+  relayButtonOff();
 }
 //------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------
@@ -111,9 +126,7 @@ void loop()
         }
       }
     }
-
     Serial.println(SwitchOn);
-
   }
 }
 //------------------------------------------------------------------------------------------
@@ -212,4 +225,16 @@ void greenBtn()
   tft.setTextDatum(MC_DATUM);
   tft.drawString("OFF", REDBUTTON_X + (REDBUTTON_W / 2) + 1, REDBUTTON_Y + (REDBUTTON_H / 2));
   SwitchOn = true;
+}
+
+void relayButtonOff()
+{
+  tft.fillRect(REDBUTTON_X, REDBUTTON_Y, REDBUTTON_W, REDBUTTON_H, TFT_RED);
+  tft.fillRect(GREENBUTTON_X, GREENBUTTON_Y, GREENBUTTON_W, GREENBUTTON_H, TFT_DARKGREY);
+  drawFrame();
+  tft.setTextColor(TFT_WHITE);
+  tft.setTextSize(2);
+  tft.setTextDatum(MC_DATUM);
+  tft.drawString("ON", GREENBUTTON_X + (GREENBUTTON_W / 2), GREENBUTTON_Y + (GREENBUTTON_H / 2));
+  SwitchOn = false;
 }
