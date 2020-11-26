@@ -32,6 +32,7 @@ TFT_eSPI tft = TFT_eSPI();       // Invoke custom library
 //------------------------------------------------------------------------------------------
 
 #define REPEAT_CAL false
+#define WAIT 1000
 
 //Default action of on screen switch set to on
 boolean SwitchOn = false;
@@ -88,6 +89,7 @@ void setup(void)
 
 void loop()
 {
+  targetTime = millis();
   //Int data type, uint16 is used for portability when writing library files
   uint16_t x, y;
   
@@ -211,7 +213,25 @@ void redBtn()
   tft.setTextDatum(MC_DATUM);
   tft.drawString("ON", GREENBUTTON_X + (GREENBUTTON_W / 2), GREENBUTTON_Y + (GREENBUTTON_H / 2));
   SwitchOn = false;
+  textBoxRedButton();
 }
+
+void textBoxRedButton()
+{
+  tft.setTextColor(TFT_RED, TFT_BLACK);
+  tft.drawString("Red Button pressed", 0, 0, 4);
+  tft.drawString("defghijklmno", 0, 26, 4);
+  tft.drawString("pqrstuvwxyz", 0, 52, 4); 
+}
+
+void textBoxGreenButton()
+{
+  tft.setTextColor(TFT_GREEN, TFT_BLACK);
+  tft.drawString("Greed Button pressed", 0, 0, 4);
+  tft.drawString("defghijklmno", 0, 26, 4);
+  tft.drawString("pqrstuvwxyz", 0, 52, 4); 
+}
+
 
 // Draw a green button
 void greenBtn()
@@ -224,4 +244,5 @@ void greenBtn()
   tft.setTextDatum(MC_DATUM);
   tft.drawString("OFF", REDBUTTON_X + (REDBUTTON_W / 2) + 1, REDBUTTON_Y + (REDBUTTON_H / 2));
   SwitchOn = true;
+  textBoxGreenButton();
 }
