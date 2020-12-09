@@ -1,34 +1,3 @@
-/*
-  Display "flicker free" scrolling text and updating number
-
-  Example for library:
-  https://github.com/Bodmer/TFT_eSPI
-
-  The sketch has been tested on a 320x240 ILI9341 based TFT, it
-  coule be adapted for other screen sizes.
-
-  A Sprite is notionally an invisible graphics screen that is
-  kept in the processors RAM. Graphics can be drawn into the
-  Sprite just as it can be drawn directly to the screen. Once
-  the Sprite is completed it can be plotted onto the screen in
-  any position. If there is sufficient RAM then the Sprite can
-  be the same size as the screen and used as a frame buffer.
-
-  The Sprite occupies (2 * width * height) bytes.
-
-  On a ESP8266 Sprite sizes up to 128 x 160 can be accomodated,
-  this size requires 128*160*2 bytes (40kBytes) of RAM, this must be
-  available or the processor will crash. You need to make the sprite
-  small enough to fit, with RAM spare for any "local variables" that
-  may be needed by your sketch and libraries.
-
-  Created by Bodmer 15/11/17
-
-  #########################################################################
-  ###### DON'T FORGET TO UPDATE THE User_Setup.h FILE IN THE LIBRARY ######
-  #########################################################################
-*/
-
 // Size of sprite image for the scrolling text, this requires ~14 Kbytes of RAM
 #define IWIDTH  320
 #define IHEIGHT 30
