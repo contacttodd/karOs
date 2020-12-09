@@ -1,15 +1,3 @@
-/*
- Display all the fonts.
-
- This sketch uses the GLCD (font 1) and fonts 2, 4, 6, 7, 8
- 
- #########################################################################
- ###### DON'T FORGET TO UPDATE THE User_Setup.h FILE IN THE LIBRARY ######
- ######       TO SELECT THE FONTS AND PINS YOU USE, SEE ABOVE       ######
- #########################################################################
-
- */
-
 // New background colour
 #define TFT_BROWN 0x38E0
 
