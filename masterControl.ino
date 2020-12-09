@@ -1,14 +1,3 @@
-// Example of drawing a graphical "switch" and using
-// the touch screen to change it's state.
-
-// This sketch does not use the libraries button drawing
-// and handling functions.
-
-// Based on Adafruit_GFX library onoffbutton example.
-
-// Touch handling for XPT2046 based screens is handled by
-// the TFT_eSPI library.
-
 // Calibration data is stored in SPIFFS so we need to include it
 #include "FS.h"
 #include <SPI.h>
