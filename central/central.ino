@@ -6,18 +6,24 @@
 // Load Wi-Fi library
 #include <WiFi.h>
 
-//#define PIN_WS2812B  4   // ESP32 pin that connects to WS2812B
-//#define NUM_PIXELS     30  // The number of LEDs (pixels) on WS2812B
+//LED CODE BEGIN
+  //#define PIN_WS2812B  4   // ESP32 pin that connects to WS2812B
+  //#define NUM_PIXELS     30  // The number of LEDs (pixels) on WS2812B
 
- //Adafruit_NeoPixel WS2812B(NUM_PIXELS, PIN_WS2812B, NEO_GRB + NEO_KHZ800);
+  //Adafruit_NeoPixel WS2812B(NUM_PIXELS, PIN_WS2812B, NEO_GRB + NEO_KHZ800);
+
+//LED CODE END
 
 
+//MOTOR DRIVER BEGIN
 #define PIN_IN1  16 // ESP32 pin GPIO27 connected to the IN1 pin L298N
 #define PIN_IN2  17 // ESP32 pin GPIO26 connected to the IN2 pin L298N
 #define PIN_ENA  18 // ESP32 pin GPIO14 connected to the EN1 pin L298N
 
+//MOTOR DRIVER END
+
 // Replace with your network credentials
-const char* ssid     = "ESP32-Access-Point";
+const char* ssid     = "1972 Karmann Ghia";
 const char* password = "123456789";
 
 // Set web server port number to 80
@@ -43,6 +49,7 @@ void setup() {
   digitalWrite(output26, LOW);
   digitalWrite(output27, LOW);
 
+  //Pins used for motor driver
   pinMode(PIN_IN1, OUTPUT);
   pinMode(PIN_IN2, OUTPUT);
   pinMode(PIN_ENA, OUTPUT);
@@ -80,38 +87,12 @@ void loop(){
             client.println("Content-type:text/html");
             client.println("Connection: close");
             client.println();
-            
             // turns the GPIOs on and off
             if (header.indexOf("GET /26/on") >= 0) {
               Serial.println("GPIO 26 on");
               output26State = "on";
               digitalWrite(output26, HIGH);
-
-              //Motor Code Begin
-                digitalWrite(PIN_IN1, HIGH); // control the motor's direction in clockwise
-                digitalWrite(PIN_IN2, LOW);  // control the motor's direction in clockwise
-
-                for (int speed = 0; speed <= 255; speed++) {
-                  analogWrite(PIN_ENA, speed); // speed up
-                  delay(10);
-                }
-
-                delay(2000); // rotate at maximum speed 2 seconds in clockwise direction
-
-                // change direction
-                digitalWrite(PIN_IN1, LOW);   // control the motor's direction in anti-clockwise
-                digitalWrite(PIN_IN2, HIGH);  // control the motor's direction in anti-clockwise
-
-                delay(2000); // rotate at maximum speed for 2 seconds in anti-clockwise direction
-
-                for (int speed = 255; speed >= 0; speed--) {
-                  analogWrite(PIN_ENA, speed); // speed down
-                  delay(10);
-                }
-
-                delay(2000); // stop motor 2 second
-
-              //Motor Code End
+              motorTest();
             } else if (header.indexOf("GET /26/off") >= 0) {
               Serial.println("GPIO 26 off");
               output26State = "off";
@@ -179,3 +160,31 @@ void loop(){
     Serial.println("");
   }
 }
+
+  void motorTest() {
+    //Motor Code Begin
+    digitalWrite(PIN_IN1, HIGH); // control the motor's direction in clockwise
+    digitalWrite(PIN_IN2, LOW);  // control the motor's direction in clockwise
+
+    for (int speed = 0; speed <= 255; speed++) {
+      analogWrite(PIN_ENA, speed); // speed up
+      delay(10);
+    }
+
+    delay(2000); // rotate at maximum speed 2 seconds in clockwise direction
+
+    // change direction
+    digitalWrite(PIN_IN1, LOW);   // control the motor's direction in anti-clockwise
+    digitalWrite(PIN_IN2, HIGH);  // control the motor's direction in anti-clockwise
+
+    delay(2000); // rotate at maximum speed for 2 seconds in anti-clockwise direction
+
+    for (int speed = 255; speed >= 0; speed--) {
+      analogWrite(PIN_ENA, speed); // speed down
+      delay(10);
+    }
+
+    delay(2000); // stop motor 2 second
+
+  //Motor Code End 
+  }
