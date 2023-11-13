@@ -6,11 +6,15 @@
 // Load Wi-Fi library
 #include <WiFi.h>
 
+
+//LED CODE BEGIN
 //#define PIN_WS2812B  4   // ESP32 pin that connects to WS2812B
 //#define NUM_PIXELS     30  // The number of LEDs (pixels) on WS2812B
 
  //Adafruit_NeoPixel WS2812B(NUM_PIXELS, PIN_WS2812B, NEO_GRB + NEO_KHZ800);
 
+
+//LED CODE END
 
 #define PIN_IN1  16 // ESP32 pin GPIO27 connected to the IN1 pin L298N
 #define PIN_IN2  17 // ESP32 pin GPIO26 connected to the IN2 pin L298N
